@@ -24,4 +24,4 @@ và tính toán lời lỗ của từng hạng mục.
     code có thể hoạt động bình thường, chúng sẽ không hiện lên biểu đồ đâu nên đừng lo lắng.
   - Giá crypto vui lòng để ở tiền US Dollar
 
-    Script được viết ra để phù hợp với nhu cầu bản thân nên các tính năng có thể không phù hợp với người khác. 
+    Script được viết ra bởi 1 người cực kì nghiệp dư và chủ yếu để đáp ứng nhu cầu bản thân nên mong mng thông cảm...
