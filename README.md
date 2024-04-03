@@ -23,3 +23,5 @@ và tính toán lời lỗ của từng hạng mục.
   - Vui lòng giữ nguyên các mã có sẵn trong file excel, và chuyển share (gold đối với vàng, crypto amount đối với crypto) về 0 nếu bạn không sở hữu chúng để
     code có thể hoạt động bình thường, chúng sẽ không hiện lên biểu đồ đâu nên đừng lo lắng.
   - Giá crypto vui lòng để ở tiền US Dollar
+
+    Script được viết ra để phù hợp với nhu cầu bản thân nên các tính năng có thể không phù hợp với mọi người. 
