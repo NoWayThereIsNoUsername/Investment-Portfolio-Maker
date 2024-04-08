@@ -36,7 +36,7 @@ def gold_price():
     page_data = BeautifulSoup(page.content, 'html.parser')
     number_of_holding = df['gold'][0]
     data = page_data.find_all('td',attrs={'class': 'br bb bg_bl white_text'})
-    giavang_Data = data[9].text
+    giavang_Data = data[8].text
     gia_vang = int(giavang_Data[0:2])*1000000 + int(giavang_Data[3:5])*10000
     return gia_vang*number_of_holding
 
@@ -246,17 +246,17 @@ day_now = str(day_update)
 with open(directory, 'w') as file:
     for diff_Stock in difference_stock:
         new_diff_Stock = diff_Stock.astype(float)
-        file.write(stock_name_only[counter] + " -> " + str(round(new_diff_Stock, 3)) + " %. Profit: " + str(difference_stock_price[counter]) + " VND" + "\n")
+        file.write(stock_name_only[counter] + " -> " + str(round(new_diff_Stock, 3)) + " %. Profit: " + str(difference_stock_price[counter]) + " VND. Current price: " + str(array_1[counter]) + " VND\n")
         counter += 1
 
     for diff_crypto in cryptocurrency[2]:
         new_diff_crypto = diff_crypto.astype(float)
-        file.write(crypto_name_list[counter_crypto] + " -> " + str(round(new_diff_crypto,3)) + " %. Profit: " + str(round(cryptocurrency[3][counter_crypto] * vnd)) + " VND" + "\n")
+        file.write(crypto_name_list[counter_crypto] + " -> " + str(round(new_diff_crypto,3)) + " %. Profit: " + str(round(cryptocurrency[3][counter_crypto] * vnd)) + " VND. Current price: " + str(round(cryptocurrency[4][counter_crypto] * vnd)) + " VND\n")
         counter_crypto += 1
         
 
 
-    file.write("Gold -> " + str(round(difference_gold, 3)) + " %. Profit: " + str((goldprice-og_gold_price)) + "\n")
+    file.write("Gold -> " + str(round(difference_gold, 3)) + " %. Profit: " + str((goldprice-og_gold_price)) + ". Current price: " + str(round(goldprice)) +  " VND\n")
     file.write("=====================================\n")
     file.write("Total original asset: " + str(round(TOTAL_ASSET_ORIGINAL)) + " VND\n")
     file.write("Total current asset: " + str(round(TOTAL_ASSET)) + " VND\n")
@@ -265,8 +265,7 @@ with open(directory, 'w') as file:
     file.write("\n\n\n\nAn investment in knowledge pays the best interest. — Benjamin Franklin")
 
     
-print("Revenue report saved to " + directory)
-
+print("Investment report saved to " + directory)
 
 
 
