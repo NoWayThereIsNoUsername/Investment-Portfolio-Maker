@@ -61,7 +61,7 @@ def stock_price(stock_name):
             stock_data = vns.stock_historical_data(symbol=stock_name, start_date=day_bf_yesterday_str, end_date=day_bf_yesterday_str, resolution='1D', type = 'stock',beautify=False, decor=True, source='DNSE')
         if current_time.weekday() == 0:
             stock_data = vns.stock_historical_data(symbol=stock_name, start_date=friday_date_str, end_date=friday_date_str, resolution='1D', type = 'stock',beautify=False, decor=True, source='DNSE')
-        else:
+        if current_time.weekday() == 5:
             
             stock_data = vns.stock_historical_data(symbol=stock_name, start_date=yesterday_str, end_date=yesterday_str, resolution='1D', type = 'stock',beautify=False, decor=True, source='DNSE')
         return stock_data.iloc[0]
