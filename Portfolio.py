@@ -64,6 +64,8 @@ def stock_price(stock_name):
         if current_time.weekday() == 5:
             
             stock_data = vns.stock_historical_data(symbol=stock_name, start_date=yesterday_str, end_date=yesterday_str, resolution='1D', type = 'stock',beautify=False, decor=True, source='DNSE')
+        else: 
+            stock_data = vns.stock_historical_data(symbol=stock_name, start_date=yesterday_str, end_date=yesterday_str, resolution='1D', type = 'stock',beautify=False, decor=True, source='DNSE')
         return stock_data.iloc[0]
 
     
@@ -139,6 +141,7 @@ def get_crypto_prices():
     counter_crypto_private = 0
     counter_crypto_private1 = 0
     global crypto_name_list
+    global array_1_c
     # URL of the CoinGecko API endpoint for cryptocurrency prices
     crypto_price_list = []
     crypto_price_original_list = []
@@ -183,11 +186,11 @@ def get_crypto_prices():
             crpr = og_crypto_price * crypto_share[counter_crypto_private1]
             crypto_price_original_list.append(crpr)
             counter_crypto_private1 += 1
-    array_1 = np.array(crypto_price_original_list) #ORIGINAL
+    array_1_c = np.array(crypto_price_original_list) #ORIGINAL
     array_2 = np.array(cryto_price_list_user)    #CURRENT
     
-    crypto_diff_percent = ((array_2 - array_1) / array_1) * 100
-    crypto_diff_price = array_2 - array_1  
+    crypto_diff_percent = ((array_2 - array_1_c) / array_1_c) * 100
+    crypto_diff_price = array_2 - array_1_c 
     return crypto_price_list, crypto_price_original_list, crypto_diff_percent, crypto_diff_price, cryto_price_list_user
         
 combine_stock_price()
@@ -204,9 +207,15 @@ TOTAL_ASSET_ORIGINAL = int(sum(revenue[0]) * df['gold'][0] + sum(revenue[1])) + 
 
 TOTAL_ASSET = int(goldprice) + sum(price) + sum(cryptocurrency[4])*vnd
 for c in cryptocurrency[4]:
-    price.append(c*vnd)
+    if array_1_c == 0:
+        pass
+    else:
+        price.append(c*vnd)
 for b in crypto_name_list:
-    stock_name.append(b)
+    if array_1_c == 0:
+        pass
+    else:
+        stock_name.append(b)
 
 
 rev = TOTAL_ASSET-TOTAL_ASSET_ORIGINAL
@@ -249,10 +258,13 @@ with open(directory, 'w') as file:
         file.write(stock_name_only[counter] + " -> " + str(round(new_diff_Stock, 3)) + " %. Profit: " + str(difference_stock_price[counter]) + " VND. Current price: " + str(array_1[counter]) + " VND\n")
         counter += 1
 
-    for diff_crypto in cryptocurrency[2]:
-        new_diff_crypto = diff_crypto.astype(float)
-        file.write(crypto_name_list[counter_crypto] + " -> " + str(round(new_diff_crypto,3)) + " %. Profit: " + str(round(cryptocurrency[3][counter_crypto] * vnd)) + " VND. Current price: " + str(round(cryptocurrency[4][counter_crypto] * vnd)) + " VND\n")
-        counter_crypto += 1
+    if array_1_c == 0:
+        pass
+    else:
+        for diff_crypto in cryptocurrency[2]:
+            new_diff_crypto = diff_crypto.astype(float)
+            file.write(crypto_name_list[counter_crypto] + " -> " + str(round(new_diff_crypto,3)) + " %. Profit: " + str(round(cryptocurrency[3][counter_crypto] * vnd)) + " VND. Current price: " + str(round(cryptocurrency[4][counter_crypto] * vnd)) + " VND\n")
+            counter_crypto += 1
         
 
 
@@ -266,8 +278,6 @@ with open(directory, 'w') as file:
 
     
 print("Investment report saved to " + directory)
-
-
 
 
 
